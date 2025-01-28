@@ -19,7 +19,7 @@ struct ContentView: View
         {
             BluredBackground()
             
-            MainBackgroundColor()
+            MainBackgroundColor(isDay: $isDay)
         
             VStack
             {
@@ -44,14 +44,7 @@ struct ContentView: View
                 
                 
                 
-                Button("Day Night"){
-                    print("day night")
-                }
-                .frame(width: 290, height: 60)
-                .background(Color("MurkyBlue"))
-                .scaledToFill()
-                .cornerRadius(30)
-                .padding(.bottom)
+                DayNightButton(isDay: $isDay)
             }
             
         }
@@ -169,13 +162,59 @@ struct BluredBackground: View
 
 struct MainBackgroundColor: View
 {
+    @Binding var isDay: Bool
+    
     var body: some View
     {
-            LinearGradient(
-                gradient: Gradient(colors: [Color("DarkBlue"), Color("LightBlue")]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
+        if (isDay)
+        {
+            LinearGradient(gradient: Gradient(colors: [Color("DarkBlue"),                                                             Color("LightBlue")]),
+                             startPoint: .topLeading,
+                             endPoint: .bottomTrailing)
             .edgesIgnoringSafeArea(.all)
+        }
+        else
+        {
+            LinearGradient(gradient: Gradient(colors: [Color("LightBlue"),                                                 Color("DarkBlue")]),
+                   startPoint: .topLeading,
+                   endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all)
+            
+        }
+        
+        
+        
+//            LinearGradient(
+//                gradient: Gradient(colors: [Color("DarkBlue"), Color("LightBlue")]),
+//                startPoint: .topLeading,
+//                endPoint: .bottomTrailing
+//            )
+//            .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct DayNightButton: View
+{
+    @Binding var isDay: Bool
+    
+    var body: some View
+    {
+        Button("Day Night"){
+            isDay.toggle()
+            if (isDay)
+            {
+                print("Daytime")
+            }
+            else
+            {
+                print("Nighttime")
+            }
+            //print(isDay)
+        }
+        .frame(width: 290, height: 60)
+        .background(Color("MurkyBlue"))
+        .scaledToFill()
+        .cornerRadius(30)
+        .padding(.bottom)
     }
 }
