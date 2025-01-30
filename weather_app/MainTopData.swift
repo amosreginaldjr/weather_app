@@ -30,7 +30,7 @@ struct MainTopData: View
         //weather icon and temperature
         VStack(alignment: .center, spacing: 10)
         {
-            Image(systemName: weatherIcon)
+            Image(systemName: weatherData.icon)
                 .renderingMode(.original)//.symbolRenderingMode(.multicolor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
