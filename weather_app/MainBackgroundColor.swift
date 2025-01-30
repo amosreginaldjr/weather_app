@@ -26,7 +26,6 @@ struct MainBackgroundColor: View
 //                   startPoint: .topLeading,
 //                   endPoint: .bottomTrailing)
 //            .edgesIgnoringSafeArea(.all)
-//            
 //        }
         
       

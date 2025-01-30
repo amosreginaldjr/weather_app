@@ -1,8 +1,10 @@
-//
-//  things to do.swift
-//  weather_app
-//
-//  Created by Amos Reginald Jr. on 1/27/25.
-//
 
-import Foundation
+when the device is in night mode, i need to make it so that the weather elements that are blurred
+also have a BluredBackground
+
+
+https://developer.apple.com/weatherkit/
+
+
+issue:
+the layouts on pro vs pro max devices are different

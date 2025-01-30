@@ -11,21 +11,33 @@ struct ContentView: View
 {
     @State var isDay = true
     
+    @StateObject var weatherData = WeatherData()
+    
     var body: some View
     {
         ZStack
         {
+            
             BluredBackground()
             
             MainBackgroundColor(isDay: $isDay)
         
             VStack
             {
-                MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
+                //MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
+                MainTopData(city: "San Francisco", state: "CA", weatherData: weatherData)
+                    .task {
+                                await weatherData.getWeather(lat: 37.7749, long: -122.4194) // Example: San Francisco
+                                }
+//                    .task {
+//                                await weatherData.getWeather(lat: 37.7749, long: -122.4194) // Example: San Francisco
+//                                }
+                
+                
                 
                 ZStack()
                 {
-                    ScrollView(.horizontal)
+                    ScrollView(.horizontal, showsIndicators: false)
                     {
                         HStack(spacing: 15)
                         {
@@ -38,6 +50,10 @@ struct ContentView: View
                             DayOfTheWeek(dayOfTheWeek: "Thu", temperature: "84°")
                             WeatherSpacer()
                             DayOfTheWeek(dayOfTheWeek: "Fri", temperature: "68°")
+                            WeatherSpacer()
+                            DayOfTheWeek(dayOfTheWeek: "Sat", temperature: "55°")
+                            WeatherSpacer()
+                            DayOfTheWeek(dayOfTheWeek: "Sun", temperature: "32°")
                         }
                     }
                     
@@ -54,7 +70,5 @@ struct ContentView: View
 {
     ContentView()
 }
-
-
 
 //func detectDayNight() -> Bool {}
