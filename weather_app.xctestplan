@@ -9,6 +9,10 @@
     }
   ],
   "defaultOptions" : {
+    "locationScenario" : {
+      "identifier" : "Hong Kong, China",
+      "referenceType" : "built-in"
+    },
     "targetForVariableExpansion" : {
       "containerPath" : "container:weather_app.xcodeproj",
       "identifier" : "C822AFC12D4210880016AAFD",

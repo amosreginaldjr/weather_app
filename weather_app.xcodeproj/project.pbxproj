@@ -23,10 +23,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C86D8A5B2D4F1D8F00631F9C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		C822AFC22D4210880016AAFD /* weather_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weather_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C822AFD22D4210890016AAFD /* weather_appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weather_appTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C822AFDC2D4210890016AAFD /* weather_appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weather_appUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C86D8A482D4F181900631F9C /* weather_app.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = weather_app.xctestplan; sourceTree = "<group>"; };
+		C86D8A5C2D4F20BC00631F9C /* a7afecef68b1bf043639dd959acad686.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = a7afecef68b1bf043639dd959acad686.gpx; path = ../../../Downloads/a7afecef68b1bf043639dd959acad686.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -43,6 +58,11 @@
 		C822AFDF2D4210890016AAFD /* weather_appUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = weather_appUITests;
+			sourceTree = "<group>";
+		};
+		C86D8A502D4F1D8F00631F9C /* RequestLocation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RequestLocation;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +95,12 @@
 		C822AFB92D4210880016AAFD = {
 			isa = PBXGroup;
 			children = (
+				C86D8A5C2D4F20BC00631F9C /* a7afecef68b1bf043639dd959acad686.gpx */,
+				C86D8A482D4F181900631F9C /* weather_app.xctestplan */,
 				C822AFC42D4210880016AAFD /* weather_app */,
 				C822AFD52D4210890016AAFD /* weather_appTests */,
 				C822AFDF2D4210890016AAFD /* weather_appUITests */,
+				C86D8A502D4F1D8F00631F9C /* RequestLocation */,
 				C822AFC32D4210880016AAFD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,6 +125,7 @@
 				C822AFBE2D4210880016AAFD /* Sources */,
 				C822AFBF2D4210880016AAFD /* Frameworks */,
 				C822AFC02D4210880016AAFD /* Resources */,
+				C86D8A5B2D4F1D8F00631F9C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -399,6 +423,8 @@
 				DEVELOPMENT_TEAM = 62CN6X3LZ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "weather-app-Info.plist";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "Your app need to provide access to your location to provide location-based services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -429,6 +455,8 @@
 				DEVELOPMENT_TEAM = 62CN6X3LZ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "weather-app-Info.plist";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "Your app need to provide access to your location to provide location-based services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
