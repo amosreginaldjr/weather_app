@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "F72B257E-3088-479A-A443-A4C98358977F",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:weather_app.xcodeproj",
+      "identifier" : "C822AFC12D4210880016AAFD",
+      "name" : "weather_app"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:weather_app.xcodeproj",
+        "identifier" : "C822AFD12D4210890016AAFD",
+        "name" : "weather_appTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:weather_app.xcodeproj",
+        "identifier" : "C822AFDB2D4210890016AAFD",
+        "name" : "weather_appUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
