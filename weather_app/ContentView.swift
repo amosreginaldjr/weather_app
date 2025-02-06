@@ -58,10 +58,9 @@ struct ContentView: View
                     
                     
                     //
-                    NavigationLink(destination: UserLocationMainView()){
+                    NavigationLink(destination: LocationManagerMainView()){
                         
                         Text("Button to get your Location") //make a spacer, ramen said that the white bar overlaps this button
-                        
                     }
                     .buttonStyle(.borderedProminent)
                     //.padding(.bottom, 40)
@@ -75,6 +74,11 @@ struct ContentView: View
         }
     }
 }
+
+/*
+ Text("Latitude: \(userLocation.lastKnownLocation?.latitude ?? 0.0)")
+ Text("Longitude: \(userLocation.lastKnownLocation?.longitude ?? 0.0)")
+ */
 
 #Preview
 {

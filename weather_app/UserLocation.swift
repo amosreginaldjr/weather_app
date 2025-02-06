@@ -10,13 +10,14 @@ import Foundation
 import CoreLocation
 import SwiftUI
 
-final class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject
-{
+final class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject {
+    
     @Published var lastKnownLocation: CLLocationCoordinate2D?
     var manager = CLLocationManager()
     
-    func checkLocationAuthorization()
-    {
+    
+    func checkLocationAuthorization() {
+        
         manager.delegate = self
         manager.startUpdatingLocation()
         
@@ -39,12 +40,10 @@ final class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject
             
         @unknown default:
             print("Location service disabled")
-        
         }
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager)
-    { //Trigged every time authorization status changes
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {//Trigged every time authorization status changes
         checkLocationAuthorization()
     }
     
@@ -56,23 +55,24 @@ final class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject
 struct UserLocationMainView: View
 {
     @StateObject private var userLocation = UserLocation()
-        
-        var body: some View {
-            VStack {
-                if let coordinate = userLocation.lastKnownLocation {
-                    Text("Latitude: \(coordinate.latitude)")
-                    
-                    Text("Longitude: \(coordinate.longitude)")
-                } else {
-                    Text("Unknown Location")
-                }
+    
+    var body: some View
+    {
+        VStack {
+            if let coordinate = userLocation.lastKnownLocation
+            {
+                Text("Latitude: \(coordinate.latitude)")
                 
-                
-                Button("Get location") {
-                    userLocation.checkLocationAuthorization()
-                }
-                .buttonStyle(.borderedProminent)
+                Text("Longitude: \(coordinate.longitude)")
+            } else {
+                Text("Unknown Location")
             }
-            .padding()
+            
+            Button("Get location") {
+                userLocation.checkLocationAuthorization()
+            }
+            .buttonStyle(.borderedProminent)
         }
+        .padding()
+    }
 }
