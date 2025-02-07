@@ -5,70 +5,94 @@
 //  Created by Amos Reginald Jr. on 1/23/25.
 //
 
+/*used to for navigation link
+https://stackoverflow.com/questions/56437335/go-to-a-new-view-using-swiftui*/
+
 import SwiftUI
 
 struct ContentView: View
 {
     @State var isDay = true
     
-    @StateObject var weatherData = WeatherData()
+    @StateObject private var userLocation = UserLocation() //instance of UserLocation.swift
     
     var body: some View
     {
-        ZStack
+        NavigationView
         {
+
             
-            BluredBackground()
             
-            MainBackgroundColor(isDay: $isDay)
-        
-            VStack
+            
+            //
+            ZStack
             {
-                //MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
-                MainTopData(city: "San Francisco", state: "CA", weatherData: weatherData)
-                    .task {
-                                await weatherData.getWeather(lat: 37.7749, long: -122.4194) // Example: San Francisco
-                                }
-//                    .task {
-//                                await weatherData.getWeather(lat: 37.7749, long: -122.4194) // Example: San Francisco
-//                                }
+                BluredBackground()
                 
+                MainBackgroundColor(isDay: $isDay)
+
                 
-                
-                ZStack()
+                VStack
                 {
-                    ScrollView(.horizontal, showsIndicators: false)
+                    MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
+                    
+                    ZStack()
+
                     {
-                        HStack(spacing: 15)
+                        ScrollView(.horizontal)
                         {
-                            DayOfTheWeek(dayOfTheWeek: "Mon", temperature: "65°")
-                            WeatherSpacer()
-                            DayOfTheWeek(dayOfTheWeek: "Tue", temperature: "97°")
-                            WeatherSpacer()
-                            DayOfTheWeek(dayOfTheWeek: "Wed", temperature: "72°")
-                            WeatherSpacer()
-                            DayOfTheWeek(dayOfTheWeek: "Thu", temperature: "84°")
-                            WeatherSpacer()
-                            DayOfTheWeek(dayOfTheWeek: "Fri", temperature: "68°")
-                            WeatherSpacer()
-                            DayOfTheWeek(dayOfTheWeek: "Sat", temperature: "55°")
-                            WeatherSpacer()
-                            DayOfTheWeek(dayOfTheWeek: "Sun", temperature: "32°")
+                            HStack(spacing: 15)
+                            {
+                                DayOfTheWeek(dayOfTheWeek: "Mon", temperature: "65°")
+                                WeatherSpacer()
+                                DayOfTheWeek(dayOfTheWeek: "Tue", temperature: "97°")
+                                WeatherSpacer()
+                                DayOfTheWeek(dayOfTheWeek: "Wed", temperature: "72°")
+                                WeatherSpacer()
+                                DayOfTheWeek(dayOfTheWeek: "Thu", temperature: "84°")
+                                WeatherSpacer()
+                                DayOfTheWeek(dayOfTheWeek: "Fri", temperature: "68°")
+                            }
+
                         }
                     }
+                    Spacer(minLength: 270)
+                    
+                    DayNightButton(isDay: $isDay)
+                    
+                    
+                    //
+                    NavigationLink(destination: LocationManagerMainView()){
+                        
+                        Text("Button to get your Location") //make a spacer, ramen said that the white bar overlaps this button
+                    }
+                    .buttonStyle(.borderedProminent)
+                    //.padding(.bottom, 40)
+                    //
                     
                 }
-                Spacer(minLength: 270)
-                
-                DayNightButton(isDay: $isDay)
             }
+            //
+            
+            
         }
     }
 }
 
+/*
+ Text("Latitude: \(userLocation.lastKnownLocation?.latitude ?? 0.0)")
+ Text("Longitude: \(userLocation.lastKnownLocation?.longitude ?? 0.0)")
+ */
+
 #Preview
 {
     ContentView()
+}
+
+
+func weatherScreen()
+{
+    
 }
 
 //func detectDayNight() -> Bool {}
