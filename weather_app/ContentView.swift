@@ -14,30 +14,57 @@ struct ContentView: View
 {
     @State var isDay = true
     
+<<<<<<< HEAD
     @StateObject private var userLocation = UserLocation() //instance of UserLocation.swift
+=======
+    @StateObject var weatherData = WeatherData()
+>>>>>>> main
     
     var body: some View
     {
         NavigationView
         {
+<<<<<<< HEAD
+=======
+            
+            BluredBackground()
+>>>>>>> main
             
             
             
             //
             ZStack
             {
+<<<<<<< HEAD
                 BluredBackground()
                 
                 MainBackgroundColor(isDay: $isDay)
+=======
+                //MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
+                MainTopData(city: "San Francisco", state: "CA", weatherData: weatherData)
+                    .task {
+                                await weatherData.getWeather(lat: 37.7749, long: -122.4194) // Example: San Francisco
+                                }
+//                    .task {
+//                                await weatherData.getWeather(lat: 37.7749, long: -122.4194) // Example: San Francisco
+//                                }
+                
+                
+>>>>>>> main
                 
                 VStack
                 {
+<<<<<<< HEAD
                     MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
                     
                     ZStack()
+=======
+                    ScrollView(.horizontal, showsIndicators: false)
+>>>>>>> main
                     {
                         ScrollView(.horizontal)
                         {
+<<<<<<< HEAD
                             HStack(spacing: 15)
                             {
                                 DayOfTheWeek(dayOfTheWeek: "Mon", temperature: "65°")
@@ -50,6 +77,21 @@ struct ContentView: View
                                 WeatherSpacer()
                                 DayOfTheWeek(dayOfTheWeek: "Fri", temperature: "68°")
                             }
+=======
+                            DayOfTheWeek(dayOfTheWeek: "Mon", temperature: "65°")
+                            WeatherSpacer()
+                            DayOfTheWeek(dayOfTheWeek: "Tue", temperature: "97°")
+                            WeatherSpacer()
+                            DayOfTheWeek(dayOfTheWeek: "Wed", temperature: "72°")
+                            WeatherSpacer()
+                            DayOfTheWeek(dayOfTheWeek: "Thu", temperature: "84°")
+                            WeatherSpacer()
+                            DayOfTheWeek(dayOfTheWeek: "Fri", temperature: "68°")
+                            WeatherSpacer()
+                            DayOfTheWeek(dayOfTheWeek: "Sat", temperature: "55°")
+                            WeatherSpacer()
+                            DayOfTheWeek(dayOfTheWeek: "Sun", temperature: "32°")
+>>>>>>> main
                         }
                     }
                     Spacer(minLength: 270)
@@ -85,9 +127,12 @@ struct ContentView: View
     ContentView()
 }
 
+<<<<<<< HEAD
 func weatherScreen()
 {
     
 }
 
+=======
+>>>>>>> main
 //func detectDayNight() -> Bool {}

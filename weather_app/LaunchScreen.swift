@@ -2,6 +2,7 @@
 //  LaunchScreen.swift
 //  weather_app
 //
+<<<<<<< HEAD
 //  Created by Amos Reginald Jr. on 2/2/25.
 //
 //https://www.youtube.com/watch?v=0ytO3wCRKZU
@@ -61,5 +62,21 @@ struct LaunchScreenViewPreview: PreviewProvider
     static var previews: some View
     {
         LaunchScreenView()
+=======
+//  Created by Amos Reginald Jr. on 1/30/25.
+//
+
+import UIKit
+
+class UIView : UIViewController
+{
+    override func viewDidLoad()
+    {
+        //super.performSelector(onMainThread: #selector(UIWindowController.setNeedsStatusBarAppearanceUpdate), withObject: nil, waitUntilDone: false)
+        
+        view.backgroundColor = .cyan
+        //let myView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        
+>>>>>>> main
     }
 }

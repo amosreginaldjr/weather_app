@@ -1,0 +1,10 @@
+
+when the device is in night mode, i need to make it so that the weather elements that are blurred
+also have a BluredBackground
+
+
+https://developer.apple.com/weatherkit/
+
+
+issue:
+the layouts on pro vs pro max devices are different
