@@ -12,6 +12,7 @@ struct DayOfTheWeek: View
     //variables
     var dayOfTheWeek: String = "NULL"
     var temperature: String = "NULL"
+    var weatherIcon: String = "exclamationmark.icloud"
     
     var body: some View
     {
@@ -21,11 +22,12 @@ struct DayOfTheWeek: View
             Text(dayOfTheWeek)
                 .foregroundColor(.white)
             //icon
-            Image(systemName: "sun.max.fill")
+            Image(systemName: weatherIcon)
                 .renderingMode(.original)
                 .resizable()
                 .frame(width: 60, height: 60)
                 .aspectRatio(contentMode: .fit)
+            
             
             
             //temperature
@@ -33,5 +35,6 @@ struct DayOfTheWeek: View
                 .font(.system(size: 29, weight: .medium, design: .monospaced))
                 .foregroundColor(.white)
         }
+        //.shadow(color: .black, radius: 20, x: 10, y: 10)
     }
 }

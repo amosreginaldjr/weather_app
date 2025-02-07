@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct MainTopData: View
 {
@@ -13,6 +14,10 @@ struct MainTopData: View
     var city: String = "NULL CITY"
     var state: String = "NULL STATE"
     var temperature: String = "NULL"
+    var weatherIcon: String = "exclamationmark.icloud"
+    
+    @ObservedObject var weatherData: WeatherData //instance of WeatherData.swift
+    let jakarta = CLLocation(latitude: -6.21462, longitude: 106.84513)
     
     var body: some View
     {
@@ -25,13 +30,15 @@ struct MainTopData: View
         //weather icon and temperature
         VStack(alignment: .center, spacing: 10)
         {
-            Image(systemName: "sun.rain.fill")
+            Image(systemName: weatherData.icon)
                 .renderingMode(.original)//.symbolRenderingMode(.multicolor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 150, height: 160)
             
-            Text(temperature)
+            //Text(weatherData.temperature)
+            
+            Text(weatherData.temperature)
                 .font(.system(size: 40, weight: .medium, design: .monospaced))
                 .foregroundColor(.white)
         }
