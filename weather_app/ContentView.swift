@@ -20,13 +20,10 @@ struct ContentView: View
     {
         NavigationView
         {
-            
-            
-            
             //
             ZStack
             {
-                BluredBackground()
+                //BluredBackground()
                 
                 MainBackgroundColor(isDay: $isDay)
                 
@@ -34,7 +31,9 @@ struct ContentView: View
                 {
                     MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
                     
-                    ZStack()
+                    
+                    
+                    GroupBox() //was previously ZStack()
                     {
                         ScrollView(.horizontal)
                         {
@@ -52,7 +51,16 @@ struct ContentView: View
                             }
                         }
                     }
-                    Spacer(minLength: 270)
+                    .backgroundStyle(Color.blue.opacity(0.5))
+                    .frame(width: 390)
+                    .padding(.top, 10)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
+                    .cornerRadius(30)
+                    
+                    
+                    
+                    Spacer(minLength: 190)
                     
                     DayNightButton(isDay: $isDay)
                     
