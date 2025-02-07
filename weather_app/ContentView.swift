@@ -25,9 +25,13 @@ struct ContentView: View
         NavigationView
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             
             BluredBackground()
+>>>>>>> main
+=======
+
 >>>>>>> main
             
             
@@ -39,6 +43,7 @@ struct ContentView: View
                 BluredBackground()
                 
                 MainBackgroundColor(isDay: $isDay)
+<<<<<<< HEAD
 =======
                 //MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
                 MainTopData(city: "San Francisco", state: "CA", weatherData: weatherData)
@@ -51,6 +56,9 @@ struct ContentView: View
                 
                 
 >>>>>>> main
+=======
+
+>>>>>>> main
                 
                 VStack
                 {
@@ -58,8 +66,12 @@ struct ContentView: View
                     MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
                     
                     ZStack()
+<<<<<<< HEAD
 =======
                     ScrollView(.horizontal, showsIndicators: false)
+>>>>>>> main
+=======
+
 >>>>>>> main
                     {
                         ScrollView(.horizontal)
@@ -77,6 +89,7 @@ struct ContentView: View
                                 WeatherSpacer()
                                 DayOfTheWeek(dayOfTheWeek: "Fri", temperature: "68°")
                             }
+<<<<<<< HEAD
 =======
                             DayOfTheWeek(dayOfTheWeek: "Mon", temperature: "65°")
                             WeatherSpacer()
@@ -91,6 +104,9 @@ struct ContentView: View
                             DayOfTheWeek(dayOfTheWeek: "Sat", temperature: "55°")
                             WeatherSpacer()
                             DayOfTheWeek(dayOfTheWeek: "Sun", temperature: "32°")
+>>>>>>> main
+=======
+
 >>>>>>> main
                         }
                     }
@@ -128,6 +144,10 @@ struct ContentView: View
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 func weatherScreen()
 {
     
