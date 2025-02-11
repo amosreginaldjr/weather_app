@@ -424,7 +424,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "weather-app-Info.plist";
-				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "Your app needs to provide access to your location for location-based services.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your app needs to provide access to your location for location-based services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -461,7 +461,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "weather-app-Info.plist";
-				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "Your app needs to provide access to your location for location-based services.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your app needs to provide access to your location for location-based services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
