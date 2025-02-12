@@ -12,7 +12,9 @@ import SwiftUI
 final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     @Published var lastKnownLocation: CLLocationCoordinate2D?
+    @Published var cityName: String = "Unknown City"
     var manager = CLLocationManager()
+    let geocoder = CLGeocoder()
     
     
     func checkLocationAuthorization() {
@@ -48,8 +50,23 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        lastKnownLocation = locations.first?.coordinate
+        guard let location = locations.last else { return }
+        lastKnownLocation = location.coordinate
+        getCityName(from: location) // Now fetches city name on location update
     }
+    
+    func getCityName(from location: CLLocation)
+        {
+            geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
+                guard let self = self, let placemark = placemarks?.first, error == nil else {
+                    self?.cityName = "Unknown City"
+                    return
+                }
+                self.cityName = placemark.locality ?? "Unknown City"
+            }
+        }
+
+    
 }
 
 struct LocationManagerMainView: View {
@@ -61,6 +78,8 @@ struct LocationManagerMainView: View {
                 Text("Latitude: \(coordinate.latitude)")
                 
                 Text("Longitude: \(coordinate.longitude)")
+                
+                Text("City: \(locationManager.cityName)")
             } else {
                 Text("Unknown Location")
             }

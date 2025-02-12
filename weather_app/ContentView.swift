@@ -13,7 +13,8 @@ import SwiftUI
 struct ContentView: View
 {
     @State var isDay = true
-    @StateObject private var userLocation = UserLocation() //instance of UserLocation.swift
+    @StateObject var locationManager = LocationManager()
+    
     
     var daysOfTheWeek: [DayOfTheWeek] =
                     [DayOfTheWeek(dayOfTheWeek: "Mon", weatherIcon: "moon.stars.fill", temperature: "65°"),
@@ -36,7 +37,7 @@ struct ContentView: View
                 
                 VStack
                 {
-                    MainTopData(city: "Staten Island", state: "NY", temperature: "65°")
+                    MainTopData(city: locationManager.cityName, state: "NY", temperature: "65°")
                     
                     GroupBox() //was previously ZStack()
                     {
@@ -70,6 +71,9 @@ struct ContentView: View
                     //
                     
                 }
+                .onAppear {
+                            locationManager.checkLocationAuthorization() // Request location on view load
+                        }
             }
         }
     }
