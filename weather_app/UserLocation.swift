@@ -10,45 +10,63 @@ import Foundation
 import CoreLocation
 import SwiftUI
 
-final class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject {
-    
+final class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject
+{
     @Published var lastKnownLocation: CLLocationCoordinate2D?
+    @Published var cityName: String = "Unknown City"
+    
+    
     var manager = CLLocationManager()
+    let geocoder = CLGeocoder()
     
-    
-    func checkLocationAuthorization() {
-        
+    func checkLocationAuthorization()
+    {
         manager.delegate = self
         manager.startUpdatingLocation()
         
         switch manager.authorizationStatus {
-        case .notDetermined://The user choose allow or denny your app to get the location yet
+        case .notDetermined:
             manager.requestWhenInUseAuthorization()
             
-        case .restricted://The user cannot change this app’s status, possibly due to active restrictions such as parental controls being in place.
+        case .restricted:
             print("Location restricted")
             
-        case .denied://The user dennied your app to get location or disabled the services location or the phone is in airplane mode
+        case .denied:
             print("Location denied")
             
-        case .authorizedAlways://This authorization allows you to use all location services and receive location events whether or not your app is in use.
-            print("Location authorizedAlways")
-            
-        case .authorizedWhenInUse://This authorization allows you to use all location services and receive location events only when your app is in use
-            print("Location authorized when in use")
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("Location authorized")
             lastKnownLocation = manager.location?.coordinate
+            if let location = manager.location {
+                getCityName(from: location)
+            }
             
         @unknown default:
             print("Location service disabled")
         }
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {//Trigged every time authorization status changes
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager)
+    {
         checkLocationAuthorization()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        lastKnownLocation = locations.first?.coordinate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+        guard let location = locations.last else { return }
+        lastKnownLocation = location.coordinate
+        getCityName(from: location)
+    }
+    
+    func getCityName(from location: CLLocation)
+    {
+        geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
+            guard let self = self, let placemark = placemarks?.first, error == nil else {
+                self?.cityName = "Unknown City"
+                return
+            }
+            self.cityName = placemark.locality ?? "Unknown City"
+        }
     }
 }
 
@@ -58,17 +76,23 @@ struct UserLocationMainView: View
     
     var body: some View
     {
-        VStack {
+        VStack
+        {
             if let coordinate = userLocation.lastKnownLocation
             {
                 Text("Latitude: \(coordinate.latitude)")
-                
                 Text("Longitude: \(coordinate.longitude)")
-            } else {
-                Text("Unknown Location")
+                Text("City: \(userLocation.cityName)")
             }
             
-            Button("Get location") {
+            Text("City: \(userLocation.cityName)")
+                .font(.system(size: 32, weight: .semibold, design: .monospaced))
+                .foregroundColor(.black)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .bottom)
+            
+            Button("Get location")
+            {
                 userLocation.checkLocationAuthorization()
             }
             .buttonStyle(.borderedProminent)

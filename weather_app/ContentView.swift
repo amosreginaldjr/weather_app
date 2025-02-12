@@ -13,28 +13,21 @@ import SwiftUI
 struct ContentView: View
 {
     @State var isDay = true
-    
     @StateObject private var userLocation = UserLocation() //instance of UserLocation.swift
     
-    
-    /*
-     Trying to make an array of days of the week
-     this will allow me to make 'element n' larger than the others as the user scrolls through
-     */
-    var daysOfTheWeek: [DayOfTheWeek] = //not sure if it is supposed to be [Body]
-                                [DayOfTheWeek(dayOfTheWeek: "Mon", temperature: "65°"),
-                                 DayOfTheWeek(dayOfTheWeek: "Tue", temperature: "97°"),
-                                 DayOfTheWeek(dayOfTheWeek: "Wed", temperature: "72°"),
-                                 DayOfTheWeek(dayOfTheWeek: "Thu", temperature: "84°"),
-                                 DayOfTheWeek(dayOfTheWeek: "Fri", temperature: "68°"),
-                                 DayOfTheWeek(dayOfTheWeek: "Sat", temperature: "27°"),
-                                 DayOfTheWeek(dayOfTheWeek: "Sun", temperature: "66°")]
+    var daysOfTheWeek: [DayOfTheWeek] =
+                    [DayOfTheWeek(dayOfTheWeek: "Mon", weatherIcon: "moon.stars.fill", temperature: "65°"),
+                     DayOfTheWeek(dayOfTheWeek: "Tue", weatherIcon: "moon.stars.fill", temperature: "97°"),
+                     DayOfTheWeek(dayOfTheWeek: "Wed", weatherIcon: "moon.stars.fill", temperature: "72°"),
+                     DayOfTheWeek(dayOfTheWeek: "Thu", weatherIcon: "moon.stars", temperature: "84°"),
+                     DayOfTheWeek(dayOfTheWeek: "Fri", weatherIcon: "moon.stars.fill", temperature: "68°"),
+                     DayOfTheWeek(dayOfTheWeek: "Sat", weatherIcon: "moon.stars.fill", temperature: "27°"),
+                     DayOfTheWeek(dayOfTheWeek: "Sun", weatherIcon: "moon.stars.fill", temperature: "66°")]
     
     var body: some View
     {
         NavigationView
         {
-            //
             ZStack
             {
                 //BluredBackground()
@@ -49,25 +42,7 @@ struct ContentView: View
                     {
                         ScrollView(.horizontal)
                         {
-                            HStack(spacing: 15)
-                            {
-                                ForEach(daysOfTheWeek, id: \.dayOfTheWeek) { day in
-                                    DayOfTheWeek(dayOfTheWeek: day.dayOfTheWeek,
-                                                 temperature: day.temperature)
-                                    WeatherSpacer()
-                                }
-                                
-                                //for each loop to output the days in the GroupBox
-//                                DayOfTheWeek(dayOfTheWeek: "Mon", temperature: "65°")
-//                                WeatherSpacer()
-//                                DayOfTheWeek(dayOfTheWeek: "Tue", temperature: "97°")
-//                                WeatherSpacer()
-//                                DayOfTheWeek(dayOfTheWeek: "Wed", temperature: "72°")
-//                                WeatherSpacer()
-//                                DayOfTheWeek(dayOfTheWeek: "Thu", temperature: "84°")
-//                                WeatherSpacer()
-//                                DayOfTheWeek(dayOfTheWeek: "Fri", temperature: "68°")
-                            }
+                            DaysOfTheWeekCenterScreen(daysOfTheWeek: daysOfTheWeek)
                         }
                     }
                     .backgroundStyle(Color.blue.opacity(0.3))
@@ -96,9 +71,6 @@ struct ContentView: View
                     
                 }
             }
-            //
-            
-            
         }
     }
 }
@@ -111,11 +83,6 @@ struct ContentView: View
 #Preview
 {
     ContentView()
-}
-
-func weatherScreen()
-{
-    
 }
 
 //func detectDayNight() -> Bool {}

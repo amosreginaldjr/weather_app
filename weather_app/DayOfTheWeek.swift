@@ -9,8 +9,14 @@ import SwiftUI
 
 struct DayOfTheWeek: View
 {
-    //variables
+    //day of week
     var dayOfTheWeek: String = "NULL"
+    
+    //icon
+    var weatherIcon: String = "sun.max.fill"
+    var imageWidthHeight: CGFloat = 60
+    
+    //temperature
     var temperature: String = "NULL"
     
     var body: some View
@@ -20,13 +26,13 @@ struct DayOfTheWeek: View
             //day of week
             Text(dayOfTheWeek)
                 .foregroundColor(.white)
+            
             //icon
-            Image(systemName: "sun.max.fill")
+            Image(systemName: weatherIcon)
                 .renderingMode(.original)
                 .resizable()
-                .frame(width: 60, height: 60)
+                .frame(width: imageWidthHeight, height: imageWidthHeight)
                 .aspectRatio(contentMode: .fit)
-            
             
             //temperature
             Text(temperature)
