@@ -11,12 +11,12 @@ struct MainTopData: View
 {
     //variables
     var city: String = "NULL CITY"
-    var state: String = "NULL STATE"
+    //var state: String = "NULL STATE"
     var temperature: String = "NULL"
     
     var body: some View
     {
-        Text(city + ", " + state) //city, state
+        Text(city/* + ", " + state*/) //city, state
             .font(.system(size: 32, weight: .semibold, design: .monospaced))
             .foregroundColor(.white)
             .fixedSize(horizontal: false, vertical: true) //makes the text wrap to the next line so it does not go off screen

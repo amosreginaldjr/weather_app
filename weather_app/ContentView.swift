@@ -37,7 +37,7 @@ struct ContentView: View
                 
                 VStack
                 {
-                    MainTopData(city: locationManager.cityName, state: "NY", temperature: "65°")
+                    MainTopData(city: locationManager.cityName, /*state: locationManager.stateAbbreviation,*/ temperature: "65°")
                     
                     GroupBox() //was previously ZStack()
                     {
