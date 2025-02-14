@@ -61,19 +61,22 @@ struct ContentView: View
                     //DayNightButton(isDay: $isDay)
                     
                     
-                    //
-                    NavigationLink(destination: LocationManagerMainView()){
-                        
-                        Text("Button to get your Location") //make a spacer, ramen said that the white bar overlaps this button
-                    }
-                    .buttonStyle(.borderedProminent)
-                    //.padding(.bottom, 40)
-                    //
-                    
-                }
-                .onAppear {
-                            locationManager.checkLocationAuthorization() // Request location on view load
+//                    //
+//                    NavigationLink(destination: LocationManagerMainView()){
+//                        
+//                        Text("Button to get your Location") //make a spacer, ramen said that the white bar overlaps this button
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                    //.padding(.bottom, 40)
+//                    //
+//                    
+//                }
+//                .onAppear {
+//                            locationManager.checkLocationAuthorization() // Request location on view load
                         }
+            }
+            .onAppear {
+                locationManager.checkLocationAuthorization() // Request location on view load
             }
         }
     }
