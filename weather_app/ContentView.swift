@@ -10,6 +10,7 @@ https://stackoverflow.com/questions/56437335/go-to-a-new-view-using-swiftui*/
 
 import SwiftUI
 import CoreLocation
+import CoreLocationUI
 
 struct ContentView: View
 {
@@ -39,11 +40,16 @@ struct ContentView: View
                 
                 VStack
                 {
-                    MainTopData(city: locationManager.cityName, /*state: locationManager.stateAbbreviation,*/ temperature: temperature)
-                    //MainTopData(city: locationManager.cityName, /*state: locationManager.stateAbbreviation,*/ temperature: locationManager.currentWeather(for: <#T##CLLocation#>))
-                    
-                    
-                    
+                    MainTopData(city: locationManager.cityName, temperature: temperature)
+                        .onAppear {
+                            Task {
+                                if let location = locationManager.manager.location {
+                                    temperature = await locationManager.currentWeather(for: location) ?? "Not available"
+                                } else {
+                                    temperature = "Location Unavailable"
+                                }
+                            }
+                        }
                     
                     GroupBox() //was previously ZStack()
                     {
@@ -67,25 +73,32 @@ struct ContentView: View
             }
             .onAppear {
                 locationManager.checkLocationAuthorization() // Request location on view load
+            }
+            .onChange(of: locationManager.lastKnownLocationString) { _, _ in
                 fetchWeatherData()
             }
         }
     }
     
     //
+    
     func fetchWeatherData() {
-        // Fetch the current weather based on the last known location
-        guard let location = locationManager.lastKnownLocation else { return }
+        guard let location = locationManager.lastKnownLocation else {
+            print("Location is not available.")
+            temperature = "Location Unavailable"
+            return
+        }
         
         Task {
             if let weather = await locationManager.currentWeather(for: CLLocation(latitude: location.latitude, longitude: location.longitude)) {
+                print("Weather fetched: \(weather)") // Log the weather for debugging
                 temperature = weather
             } else {
-                temperature = "Failed to fetch weather"
+                print("Failed to fetch weather.")
+                temperature = "Failed to get weather"
             }
         }
     }
-    //
 }
 
 /*

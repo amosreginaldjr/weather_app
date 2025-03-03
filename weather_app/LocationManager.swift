@@ -10,13 +10,13 @@ import CoreLocation
 import SwiftUI
 import WeatherKit
 
-final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
-    
+final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject
+{
     @Published var lastKnownLocation: CLLocationCoordinate2D?
     @Published var cityName: String = "Unknown City"
     var manager = CLLocationManager()
     let geocoder = CLGeocoder()
-    var weatherService: WeatherService!
+    var weatherService = WeatherService()
     
     override init() {
         super.init()
@@ -59,6 +59,16 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
         }
     }
     
+    
+    
+    
+    var lastKnownLocationString: String {
+        guard let loc = lastKnownLocation else { return "Unknown" }
+        return "\(loc.latitude),\(loc.longitude)"
+    }
+    
+    
+    
     func currentWeather(for location: CLLocation) async -> String? {
         do {
             let weather = try await weatherService.weather(for: location)
@@ -70,29 +80,29 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     }
 }
 
-struct LocationManagerMainView: View {
-    @StateObject private var locationManager = LocationManager()
-    
-    var body: some View {
-        VStack {
-            if let coordinate = locationManager.lastKnownLocation {
-                Text("Latitude: \(coordinate.latitude)")
-                
-                Text("Longitude: \(coordinate.longitude)")
-                
-                Text("City: \(locationManager.cityName)")
-                
-                //Text("State: \(locationManager.stateAbbreviation)")
-            } else {
-                Text("Unknown Location")
-            }
-            
-            
-            Button("Get location") {
-                locationManager.checkLocationAuthorization()
-            }
-            .buttonStyle(.borderedProminent)
-        }
-        .padding()
-    }
-}
+//struct LocationManagerMainView: View {
+//    @StateObject private var locationManager = LocationManager()
+//    
+//    var body: some View {
+//        VStack {
+//            if let coordinate = locationManager.lastKnownLocation {
+//                Text("Latitude: \(coordinate.latitude)")
+//                
+//                Text("Longitude: \(coordinate.longitude)")
+//                
+//                Text("City: \(locationManager.cityName)")
+//                
+//                //Text("State: \(locationManager.stateAbbreviation)")
+//            } else {
+//                Text("Unknown Location")
+//            }
+//            
+//            
+//            Button("Get location") {
+//                locationManager.checkLocationAuthorization()
+//            }
+//            .buttonStyle(.borderedProminent)
+//        }
+//        .padding()
+//    }
+//}
