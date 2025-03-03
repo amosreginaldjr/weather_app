@@ -9,11 +9,13 @@
 https://stackoverflow.com/questions/56437335/go-to-a-new-view-using-swiftui*/
 
 import SwiftUI
+import CoreLocation
 
 struct ContentView: View
 {
     @State var isDay = true
     @StateObject var locationManager = LocationManager()
+    @State private var temperature: String = "Loading..."
     
     
     var daysOfTheWeek: [DayOfTheWeek] =
@@ -37,7 +39,11 @@ struct ContentView: View
                 
                 VStack
                 {
-                    MainTopData(city: locationManager.cityName, /*state: locationManager.stateAbbreviation,*/ temperature: "65°")
+                    MainTopData(city: locationManager.cityName, /*state: locationManager.stateAbbreviation,*/ temperature: temperature)
+                    //MainTopData(city: locationManager.cityName, /*state: locationManager.stateAbbreviation,*/ temperature: locationManager.currentWeather(for: <#T##CLLocation#>))
+                    
+                    
+                    
                     
                     GroupBox() //was previously ZStack()
                     {
@@ -57,29 +63,29 @@ struct ContentView: View
                     
                     
                     Spacer(minLength: 190)
-                    
-                    //DayNightButton(isDay: $isDay)
-                    
-                    
-//                    //
-//                    NavigationLink(destination: LocationManagerMainView()){
-//                        
-//                        Text("Button to get your Location") //make a spacer, ramen said that the white bar overlaps this button
-//                    }
-//                    .buttonStyle(.borderedProminent)
-//                    //.padding(.bottom, 40)
-//                    //
-//                    
-//                }
-//                .onAppear {
-//                            locationManager.checkLocationAuthorization() // Request location on view load
-                        }
+                }
             }
             .onAppear {
                 locationManager.checkLocationAuthorization() // Request location on view load
+                fetchWeatherData()
             }
         }
     }
+    
+    //
+    func fetchWeatherData() {
+        // Fetch the current weather based on the last known location
+        guard let location = locationManager.lastKnownLocation else { return }
+        
+        Task {
+            if let weather = await locationManager.currentWeather(for: CLLocation(latitude: location.latitude, longitude: location.longitude)) {
+                temperature = weather
+            } else {
+                temperature = "Failed to fetch weather"
+            }
+        }
+    }
+    //
 }
 
 /*
