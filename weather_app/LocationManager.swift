@@ -72,7 +72,13 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     func currentWeather(for location: CLLocation) async -> String? {
         do {
             let weather = try await weatherService.weather(for: location)
-            return "\(weather.currentWeather.temperature)°C" // Return temperature as a string
+            //let temperatureFahrenheit = (Double(weather.currentWeather.temperature) * (9.0 / 5.0)) + 32.0
+            
+            //return temperatureFahrenheit
+            
+            return "\(weather.currentWeather.temperature.converted(to: .fahrenheit).value.rounded(.up).formatted())°F"
+            
+            //return "\(weather.currentWeather.temperature)°C" // Return temperature as a string
         } catch {
             print("Error fetching weather: \(error)")
             return nil
