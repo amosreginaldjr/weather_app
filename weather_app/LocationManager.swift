@@ -59,56 +59,19 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
         }
     }
     
-    
-    
-    
     var lastKnownLocationString: String {
         guard let loc = lastKnownLocation else { return "Unknown" }
         return "\(loc.latitude),\(loc.longitude)"
     }
     
-    
-    
     func currentWeather(for location: CLLocation) async -> String? {
         do {
             let weather = try await weatherService.weather(for: location)
-            //let temperatureFahrenheit = (Double(weather.currentWeather.temperature) * (9.0 / 5.0)) + 32.0
-            
-            //return temperatureFahrenheit
             
             return "\(weather.currentWeather.temperature.converted(to: .fahrenheit).value.rounded(.up).formatted())°F"
-            
-            //return "\(weather.currentWeather.temperature)°C" // Return temperature as a string
         } catch {
             print("Error fetching weather: \(error)")
             return nil
         }
     }
 }
-
-//struct LocationManagerMainView: View {
-//    @StateObject private var locationManager = LocationManager()
-//    
-//    var body: some View {
-//        VStack {
-//            if let coordinate = locationManager.lastKnownLocation {
-//                Text("Latitude: \(coordinate.latitude)")
-//                
-//                Text("Longitude: \(coordinate.longitude)")
-//                
-//                Text("City: \(locationManager.cityName)")
-//                
-//                //Text("State: \(locationManager.stateAbbreviation)")
-//            } else {
-//                Text("Unknown Location")
-//            }
-//            
-//            
-//            Button("Get location") {
-//                locationManager.checkLocationAuthorization()
-//            }
-//            .buttonStyle(.borderedProminent)
-//        }
-//        .padding()
-//    }
-//}

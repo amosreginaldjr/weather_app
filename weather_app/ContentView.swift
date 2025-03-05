@@ -17,6 +17,7 @@ struct ContentView: View
     @State var isDay = true
     @StateObject var locationManager = LocationManager()
     @State private var temperature: String = "Loading..."
+    @StateObject var fahrenheitCelsius = ConvertFahrenheitToCelsius()
     
     
     var daysOfTheWeek: [DayOfTheWeek] =
@@ -43,11 +44,8 @@ struct ContentView: View
                     MainTopData(city: locationManager.cityName, temperature: temperature)
                         .onAppear {
                             Task {
-                                if let location = locationManager.manager.location {
-                                    temperature = await locationManager.currentWeather(for: location) ?? "Not available"
-                                } else {
-                                    temperature = "Location Unavailable"
-                                }
+                                await fahrenheitCelsius.convertToFahrenheit()
+                                temperature = fahrenheitCelsius.temperature
                             }
                         }
                     
@@ -68,34 +66,38 @@ struct ContentView: View
                     
                     
                     
+                    
+                    
+                    Button(action: {
+                        Task {
+                            fahrenheitCelsius.isFahrenheit.toggle()
+                            await fahrenheitCelsius.convertToFahrenheit() // Fetch and convert weather data
+                            temperature = fahrenheitCelsius.temperature
+                        }
+                    }) {
+                        Text(fahrenheitCelsius.isFahrenheit ? "Switch to Celsius" : "Switch to Fahrenheit")
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
                     Spacer(minLength: 190)
                 }
             }
             .onAppear {
-                locationManager.checkLocationAuthorization() // Request location on view load
+                locationManager.checkLocationAuthorization()
             }
             .onChange(of: locationManager.lastKnownLocationString) { _, _ in
-                fetchWeatherData()
-            }
-        }
-    }
-    
-    //
-    
-    func fetchWeatherData() {
-        guard let location = locationManager.lastKnownLocation else {
-            print("Location is not available.")
-            temperature = "Location Unavailable"
-            return
-        }
-        
-        Task {
-            if let weather = await locationManager.currentWeather(for: CLLocation(latitude: location.latitude, longitude: location.longitude)) {
-                print("Weather fetched: \(weather)") // Log the weather for debugging
-                temperature = weather
-            } else {
-                print("Failed to fetch weather.")
-                temperature = "Failed to get weather"
+                Task {
+                    await fahrenheitCelsius.convertToFahrenheit()
+                    temperature = fahrenheitCelsius.temperature
+                }
             }
         }
     }
@@ -110,5 +112,3 @@ struct ContentView: View
 {
     ContentView()
 }
-
-//func detectDayNight() -> Bool {}
