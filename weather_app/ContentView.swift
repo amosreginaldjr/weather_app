@@ -19,6 +19,9 @@ struct ContentView: View
     @State private var temperature: String = "Loading..."
     @StateObject var fahrenheitCelsius = ConvertFahrenheitToCelsius()
     
+//    @State private var scale: CGFloat = 1.0
+//    @State private var isTapped = false
+    
     
     var daysOfTheWeek: [DayOfTheWeek] =
                     [DayOfTheWeek(dayOfTheWeek: "Mon", weatherIcon: "moon.stars.fill", temperature: "65°"),
@@ -50,6 +53,7 @@ struct ContentView: View
                             }
                         }
                     
+                    
                     GroupBox() //was previously ZStack()
                     {
                         ScrollView(.horizontal)
@@ -57,11 +61,9 @@ struct ContentView: View
                             DaysOfTheWeekCenterScreen(daysOfTheWeek: daysOfTheWeek)
                         }
                     }
+                    .padding([.trailing, .leading, .top], 5) //trailing, leading, top
                     .backgroundStyle(Color.blue.opacity(0.3))
                     .frame(width: 390)
-                    .padding(.top, 10)
-                    .padding(.leading, 10)
-                    .padding(.trailing, 10)
                     .cornerRadius(30)
                     .scrollIndicators(.hidden)
                     
@@ -76,9 +78,25 @@ struct ContentView: View
                         ScrollView(.horizontal) {
                             LazyHGrid(rows: rows, spacing: 5) {
                                 FahrenheitToCelsiusButton(fahrenheitCelsius: fahrenheitCelsius) //button
+//                                    .scaleEffect(isTapped ? 1.2 : 1.0)
+//                                    .onTapGesture {
+//                                        withAnimation(.spring()) {
+//                                            isTapped.toggle()
+//                                        }
+//                                    }
+                                    
+                                
+                                    .padding(.trailing, 20)
+                                
                                 DayNightButton(isDay: $isDay)
                             }
+                            .padding(.leading, 20)
                         }
+//                        .onTapGesture {
+//                            .scaleEffect(scale)
+//                            withAnimation(.spring()) {
+//                            }
+//                        }
                     }
                     //
                     
