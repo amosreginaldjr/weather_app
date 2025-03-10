@@ -9,32 +9,50 @@ import SwiftUI
 
 struct MainBackgroundColor: View
 {
-    @Binding var isDay: Bool
+    @Environment(\.colorScheme) var colorScheme
+    var isDay: Bool
     
     var body: some View
     {
-//        if (isDay)
-//        {
-//            LinearGradient(gradient: Gradient(colors: [Color("DarkBlue"),                                                             Color("LightBlue")]),
-//                             startPoint: .topLeading,
-//                             endPoint: .bottomTrailing)
-//            .edgesIgnoringSafeArea(.all)
-//        }
-//        else
-//        {
-//            LinearGradient(gradient: Gradient(colors: [Color("LightBlue"),                                                 Color("DarkBlue")]),
-//                   startPoint: .topLeading,
-//                   endPoint: .bottomTrailing)
-//            .edgesIgnoringSafeArea(.all)
-//            
-//        }
         
-      
-            LinearGradient(
-                gradient: Gradient(colors: [Color("DarkBlue"), Color("LightBlue")]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .edgesIgnoringSafeArea(.all)
+        let gradientColors: [Color] = isDay ?
+            [Color("LightBlue"), Color("DarkBlue")] :
+            [Color("DarkBlue"), Color("LightBlue")]
+            
+        
+        return LinearGradient(
+                    gradient: Gradient(colors: gradientColors),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .edgesIgnoringSafeArea(.all)
+        
+        
+        
+        
+//        isDay ?
+//        LinearGradient(
+//            gradient: Gradient(colors: [Color("DarkBlue"), Color("LightBlue")]),
+//            startPoint: .topLeading,
+//            endPoint: .bottomTrailing
+//        )
+//        .edgesIgnoringSafeArea(.all)
+//        :
+//        LinearGradient(
+//            gradient: Gradient(colors: [Color("DarkBlue"), Color("LightBlue")]),
+//            startPoint: .topLeading,
+//            endPoint: .bottomTrailing
+//        )
+//        .edgesIgnoringSafeArea(.all)
+        
+        
+        
+        
+//            LinearGradient(
+//                gradient: Gradient(colors: [Color("DarkBlue"), Color("LightBlue")]),
+//                startPoint: .topLeading,
+//                endPoint: .bottomTrailing
+//            )
+//            .edgesIgnoringSafeArea(.all)
     }
 }

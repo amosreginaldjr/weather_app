@@ -33,7 +33,8 @@ class ConvertFahrenheitToCelsius: ObservableObject
             
             let unit = isFahrenheit ? "°F" : "°C"
             
-            self.temperature = String(format: "%.1f%@", convertedTemperature, unit)
+            //self.temperature = String(format: "%.1f%@", convertedTemperature, unit)
+            self.temperature = String(format: "%.0f%@", convertedTemperature, unit) //change the 0 to 1 if you want decimal to show
             
             
         } catch {

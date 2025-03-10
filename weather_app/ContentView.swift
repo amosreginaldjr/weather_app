@@ -36,12 +36,13 @@ struct ContentView: View
             ZStack
             {
                 //BluredBackground()
+                //Spacer()
                 
-                MainBackgroundColor(isDay: $isDay)
+                MainBackgroundColor(isDay: isDay)
                 
                 VStack
                 {
-                    MainTopData(city: locationManager.cityName, temperature: temperature)
+                    MainTopData(city: locationManager.cityName, temperature: fahrenheitCelsius.temperature)
                         .onAppear {
                             Task {
                                 await fahrenheitCelsius.convertToFahrenheit()
@@ -65,28 +66,23 @@ struct ContentView: View
                     .scrollIndicators(.hidden)
                     
                     
+                    //
+                    let rows = [
+                            GridItem(.fixed(10), spacing: 10),
+                        ]
                     
-                    
-                    
-                    Button(action: {
-                        Task {
-                            fahrenheitCelsius.isFahrenheit.toggle()
-                            await fahrenheitCelsius.convertToFahrenheit() // Fetch and convert weather data
-                            temperature = fahrenheitCelsius.temperature
+                    Grid
+                    {
+                        ScrollView(.horizontal) {
+                            LazyHGrid(rows: rows, spacing: 5) {
+                                FahrenheitToCelsiusButton(fahrenheitCelsius: fahrenheitCelsius) //button
+                                DayNightButton(isDay: $isDay)
+                            }
                         }
-                    }) {
-                        Text(fahrenheitCelsius.isFahrenheit ? "Switch to Celsius" : "Switch to Fahrenheit")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
                     }
+                    //
                     
-                    
-                    
-                    
-                    
-                    
+                    //FahrenheitToCelsiusButton(fahrenheitCelsius: fahrenheitCelsius) //button
                     Spacer(minLength: 190)
                 }
             }

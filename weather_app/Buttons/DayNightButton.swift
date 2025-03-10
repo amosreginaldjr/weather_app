@@ -13,22 +13,34 @@ struct DayNightButton: View
     
     var body: some View
     {
-        Button("Day Night"){
+        Button (action: {
             isDay.toggle()
-            if (isDay)
-            {
-                print("Daytime")
-            }
-            else
-            {
-                print("Nighttime")
-            }
-            //print(isDay)
+        }) {
+            Text(isDay ? (Image(systemName: "sun.rain.fill")) : (Image(systemName: "moon")))
+                .padding()
+                .background(Gradient(colors: [Color("ButtonCFLighter"), Color("ButtonCFDarker")])) //CHANGE COLORS?
+                .foregroundColor(.black)
+                .cornerRadius(10)
+                .clipShape(Circle())
         }
-        .frame(width: 290, height: 60)
-        .background(Color("MurkyBlue"))
-        .scaledToFill()
-        .cornerRadius(30)
-        .padding(.bottom)
+        
+        
+//        Button("Day Night"){
+//            isDay.toggle()
+//            if (isDay)
+//            {
+//                print("Daytime")
+//            }
+//            else
+//            {
+//                print("Nighttime")
+//            }
+//            //print(isDay)
+//        }
+//        .frame(width: 290, height: 60)
+//        .background(Color("MurkyBlue"))
+//        .scaledToFill()
+//        .cornerRadius(30)
+//        .padding(.bottom)
     }
 }
