@@ -78,7 +78,7 @@ struct ContentView: View
                     }
                     .padding([.trailing, .leading, .top], 5) //trailing, leading, top
                     .backgroundStyle(Color.blue.opacity(0.3))
-                    .frame(width: 390)
+                    .frame(width: 380)
                     .cornerRadius(30)
                     .scrollIndicators(.hidden)
                     

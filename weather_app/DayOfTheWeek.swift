@@ -31,8 +31,9 @@ struct DayOfTheWeek: View
             Image(systemName: weatherIcon)
                 .renderingMode(.original)
                 .resizable()
-                .frame(width: imageWidthHeight, height: imageWidthHeight)
                 .aspectRatio(contentMode: .fit)
+                .frame(width: imageWidthHeight, height: imageWidthHeight)
+                
             
             //temperature
             Text(temperature)

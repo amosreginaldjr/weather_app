@@ -27,6 +27,7 @@ struct MainTopData: View
                 .renderingMode(.original)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                //.frame(width: 150, height: 160)
                 .frame(width: 150, height: 160)
             
             Text(temperature)
