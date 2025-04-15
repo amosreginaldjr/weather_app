@@ -18,19 +18,23 @@ struct ContentView: View
     @StateObject var locationManager = LocationManager()
     @State private var temperature: String = "Loading..."
     @StateObject var fahrenheitCelsius = ConvertFahrenheitToCelsius()
+    @StateObject var forecastData = WeeklyForecastData()
+    @State private var mainWeatherIcon: String = "cloud.sun.fill"
     
 //    @State private var scale: CGFloat = 1.0
 //    @State private var isTapped = false
     
     
-    var daysOfTheWeek: [DayOfTheWeek] =
-                    [DayOfTheWeek(dayOfTheWeek: "Mon", weatherIcon: "moon.stars.fill", temperature: "65°"),
-                     DayOfTheWeek(dayOfTheWeek: "Tue", weatherIcon: "moon.stars.fill", temperature: "97°"),
-                     DayOfTheWeek(dayOfTheWeek: "Wed", weatherIcon: "moon.stars.fill", temperature: "72°"),
-                     DayOfTheWeek(dayOfTheWeek: "Thu", weatherIcon: "moon.stars", temperature: "84°"),
-                     DayOfTheWeek(dayOfTheWeek: "Fri", weatherIcon: "moon.stars.fill", temperature: "68°"),
-                     DayOfTheWeek(dayOfTheWeek: "Sat", weatherIcon: "moon.stars.fill", temperature: "27°"),
-                     DayOfTheWeek(dayOfTheWeek: "Sun", weatherIcon: "moon.stars.fill", temperature: "66°")]
+//    var daysOfTheWeek: [DayOfTheWeek] =
+//    [
+//        DayOfTheWeek(dayOfTheWeek: "Mon", weatherIcon: "sun.max.fill", temperature: "65°"),
+//        DayOfTheWeek(dayOfTheWeek: "Tue", weatherIcon: "cloud.sun.fill", temperature: "72°"),
+//        DayOfTheWeek(dayOfTheWeek: "Wed", weatherIcon: "cloud.fill", temperature: "60°"),
+//        DayOfTheWeek(dayOfTheWeek: "Thu", weatherIcon: "sun.max.fill", temperature: "78°"),
+//        DayOfTheWeek(dayOfTheWeek: "Fri", weatherIcon: "cloud.rain.fill", temperature: "55°"),
+//        DayOfTheWeek(dayOfTheWeek: "Sat", weatherIcon: "moon.stars.fill", temperature: "50°"),
+//        DayOfTheWeek(dayOfTheWeek: "Sun", weatherIcon: "sun.max.fill", temperature: "80°")
+//    ]
     
     var body: some View
     {
@@ -45,20 +49,31 @@ struct ContentView: View
                 
                 VStack
                 {
-                    MainTopData(city: locationManager.cityName, temperature: fahrenheitCelsius.temperature)
+                    /*MainTopData(city: locationManager.cityName, temperature: fahrenheitCelsius.temperature)
                         .onAppear {
                             Task {
                                 await fahrenheitCelsius.convertToFahrenheit()
                                 temperature = fahrenheitCelsius.temperature
                             }
-                        }
+                        }*/
                     
+                    MainTopData(
+                        city: locationManager.cityName,
+                        temperature: fahrenheitCelsius.temperature,
+                        weatherIcon: mainWeatherIcon
+                    )
+                    .onAppear {
+                        Task {
+                            await fahrenheitCelsius.convertToFahrenheit()
+                            temperature = fahrenheitCelsius.temperature
+                        }
+                    }
                     
                     GroupBox() //was previously ZStack()
                     {
                         ScrollView(.horizontal)
                         {
-                            DaysOfTheWeekCenterScreen(daysOfTheWeek: daysOfTheWeek)
+                            DaysOfTheWeekCenterScreen(forecastData: forecastData)
                         }
                     }
                     .padding([.trailing, .leading, .top], 5) //trailing, leading, top
@@ -107,10 +122,29 @@ struct ContentView: View
             .onAppear {
                 locationManager.checkLocationAuthorization()
             }
-            .onChange(of: locationManager.lastKnownLocationString) { _, _ in
+            .onChange(of: locationManager.lastKnownLocationString) { _, newLocationString in
                 Task {
                     await fahrenheitCelsius.convertToFahrenheit()
                     temperature = fahrenheitCelsius.temperature
+
+                    // Parse the newLocationString into latitude and longitude
+                    let coordinates = newLocationString.split(separator: ",").compactMap { Double($0.trimmingCharacters(in: .whitespaces)) }
+
+                    if coordinates.count == 2 {
+                        let latitude = coordinates[0]
+                        let longitude = coordinates[1]
+                        let location = CLLocation(latitude: latitude, longitude: longitude)
+                        
+                        forecastData.fetchForecast(for: location)
+                        
+                        
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if let firstDay = forecastData.daysOfTheWeek.first {
+                                mainWeatherIcon = firstDay.weatherIcon
+                            }
+                        }
+                    }
                 }
             }
         }

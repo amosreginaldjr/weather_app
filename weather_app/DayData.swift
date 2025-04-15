@@ -12,3 +12,4 @@ struct DayData {
     var weatherIcon: String   // SF Symbol name like "cloud.sun"
     var temperature: String   // like "72°"
 }
+

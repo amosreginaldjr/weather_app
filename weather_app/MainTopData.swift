@@ -9,24 +9,22 @@ import SwiftUI
 
 struct MainTopData: View
 {
-    //variables
     var city: String = "NULL CITY"
-    //var state: String = "NULL STATE"
     var temperature: String = "NULL"
-    
+    var weatherIcon: String = "cloud.sun.fill" // <-- pass this in!
+
     var body: some View
     {
-        Text(city/* + ", " + state*/) //city, state
-            .font(.system(size: 32, weight: .semibold, design: .monospaced))
-            .foregroundColor(.white)
-            .fixedSize(horizontal: false, vertical: true) //makes the text wrap to the next line so it does not go off screen
-            .padding()
-        
-        //weather icon and temperature
         VStack(alignment: .center, spacing: 10)
         {
-            Image(systemName: "sun.rain.fill")
-                .renderingMode(.original)//.symbolRenderingMode(.multicolor)
+            Text(city)
+                .font(.system(size: 32, weight: .semibold, design: .monospaced))
+                .foregroundColor(.white)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
+            
+            Image(systemName: weatherIcon)
+                .renderingMode(.original)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 150, height: 160)
@@ -34,7 +32,6 @@ struct MainTopData: View
             Text(temperature)
                 .font(.system(size: 40, weight: .medium, design: .monospaced))
                 .foregroundColor(.white)
-        }
-        //Spacer() //when i have this it brings things closer together, why?
+        }.padding(.top, 50)
     }
 }
