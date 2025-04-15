@@ -22,13 +22,13 @@ class WeeklyForecastData: NSObject, CLLocationManagerDelegate, ObservableObject 
             do {
                 let weather = try await weatherService.weather(for: location)
                 let dailyForecasts = weather.dailyForecast.forecast
-
+            
                 // Ensure that you are running this on the main thread
                 await MainActor.run {
                     self.daysOfTheWeek = dailyForecasts.map { daily in
                         DayData(
                             dayOfTheWeek: DateFormatter.localizedString(from: daily.date, dateStyle: .short, timeStyle: .none),
-                            weatherIcon: daily.symbolName,
+                            weatherIcon: daily.symbolName + ".fill",
                             temperature: "\(Int(daily.highTemperature.value))°"
                         )
                     }

@@ -60,7 +60,7 @@ struct ContentView: View
                     MainTopData(
                         city: locationManager.cityName,
                         temperature: fahrenheitCelsius.temperature,
-                        weatherIcon: mainWeatherIcon
+                        weatherIcon: mainWeatherIcon //+ ".fill"
                     )
                     .onAppear {
                         Task {
