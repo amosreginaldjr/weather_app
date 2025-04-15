@@ -42,21 +42,12 @@ struct ContentView: View
         {
             ZStack
             {
-                //BluredBackground()
                 //Spacer()
                 
                 MainBackgroundColor(isDay: isDay)
                 
                 VStack
                 {
-                    /*MainTopData(city: locationManager.cityName, temperature: fahrenheitCelsius.temperature)
-                        .onAppear {
-                            Task {
-                                await fahrenheitCelsius.convertToFahrenheit()
-                                temperature = fahrenheitCelsius.temperature
-                            }
-                        }*/
-                    
                     MainTopData(
                         city: locationManager.cityName,
                         temperature: fahrenheitCelsius.temperature,
@@ -82,8 +73,7 @@ struct ContentView: View
                     .cornerRadius(30)
                     .scrollIndicators(.hidden)
                     
-                    
-                    //
+              
                     let rows = [
                             GridItem(.fixed(10), spacing: 10),
                         ]
@@ -93,29 +83,15 @@ struct ContentView: View
                         ScrollView(.horizontal) {
                             LazyHGrid(rows: rows, spacing: 5) {
                                 FahrenheitToCelsiusButton(fahrenheitCelsius: fahrenheitCelsius) //button
-//                                    .scaleEffect(isTapped ? 1.2 : 1.0)
-//                                    .onTapGesture {
-//                                        withAnimation(.spring()) {
-//                                            isTapped.toggle()
-//                                        }
-//                                    }
-                                    
-                                
+                               
                                     .padding(.trailing, 20)
                                 
                                 DayNightButton(isDay: $isDay)
                             }
                             .padding(.leading, 20)
                         }
-//                        .onTapGesture {
-//                            .scaleEffect(scale)
-//                            withAnimation(.spring()) {
-//                            }
-//                        }
                     }
-                    //
-                    
-                    //FahrenheitToCelsiusButton(fahrenheitCelsius: fahrenheitCelsius) //button
+
                     Spacer(minLength: 190)
                 }
             }
